@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salutation - Mon Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .greeting {
+            font-size: 24px;
+            color: #28a745;
+            margin: 20px 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #0056b3;
+        }
+        .info-box {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            color: #004085;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page de Salutation</h1>
+        
+        <!-- 
+            Affichage de la salutation personnalisée
+            La valeur vient du contrôleur Java
+        -->
+        <div class="greeting" th:text="${salutation}">Bonjour Visiteur !</div>
+        
+        <div class="info-box">
+            <h4>📝 Paramètres GET illustrés :</h4>
+            <p><strong>Nom reçu :</strong> <span th:text="${nomPersonne}">Aucun</span></p>
+            
+            <h5>Exemples d'URLs avec paramètres GET :</h5>
+            <ul>
+                <li><code>/saluer?nom=Jean</code> → Paramètre obligatoire</li>
+                <li><code>/bonjour</code> → Sans paramètre (valeur par défaut)</li>
+                <li><code>/bonjour?nom=Marie</code> → Avec paramètre optionnel</li>
+            </ul>
+            
+            <p><strong>Différence avec POST :</strong><br>
+            Avec GET, les paramètres sont visibles dans l'URL après le "?"<br>
+            Avec POST, les données sont dans le corps de la requête (invisibles)</p>
+        </div>
+        
+        <a href="/src/main/resources/static" class="back-link">← Retour à l'accueil</a>
+    </div>
+</body>
+</html>

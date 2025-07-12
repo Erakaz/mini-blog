@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Mon Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], 
+        input[type="email"], 
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulaire de Contact</h1>
+        
+        <div class="info-box">
+            <strong>🎓 Méthode POST en action :</strong><br>
+            Ce formulaire utilise la méthode POST pour envoyer les données.
+            Les données ne seront pas visibles dans l'URL !
+        </div>
+        
+        <!-- 
+            FORMULAIRE HTML qui utilise la méthode POST
+            
+            method="post" : spécifie que ce formulaire utilisera la méthode HTTP POST
+            action="/contact" : l'URL où envoyer les données (notre méthode @PostMapping)
+            
+            Quand l'utilisateur clique sur "Envoyer", le navigateur fait une requête :
+            POST /contact
+            Content-Type: application/x-www-form-urlencoded
+            nom=Jean&email=jean@example.com&message=Bonjour...
+        -->
+        <form method="post" action="/contact">
+            
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <!-- 
+                    name="nom" : le nom du paramètre qui sera envoyé au serveur
+                    C'est ce nom qu'on récupère avec @RequestParam("nom")
+                -->
+                <input type="text" id="nom" name="nom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message :</label>
+                <textarea id="message" name="message" required 
+                         placeholder="Écrivez votre message ici..."></textarea>
+            </div>
+            
+            <!-- 
+                type="submit" : ce bouton déclenche l'envoi du formulaire
+                Quand on clique, toutes les données des champs name="..." 
+                sont envoyées au serveur
+            -->
+            <button type="submit">Envoyer le message</button>
+        </form>
+        
+        <a href="/src/main/resources/static" class="back-link">← Retour à l'accueil</a>
+        
+        <!-- Explication technique -->
+        <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; font-size: 14px;">
+            <h4>🔍 Ce qui se passe techniquement :</h4>
+            <ol>
+                <li><strong>GET /contact</strong> : Le navigateur demande cette page</li>
+                <li><strong>Serveur</strong> : Renvoie ce formulaire HTML</li>
+                <li><strong>Utilisateur</strong> : Remplit et soumet le formulaire</li>
+                <li><strong>POST /contact</strong> : Le navigateur envoie les données</li>
+                <li><strong>Serveur</strong> : Traite les données et renvoie une confirmation</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

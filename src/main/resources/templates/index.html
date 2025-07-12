@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- 
+    THYMELEAF = moteur de template qui permet de mélanger HTML et données Java
+    xmlns:th="http://www.thymeleaf.org" active les fonctionnalités Thymeleaf
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- th:text remplace le contenu de la balise par la valeur de la variable -->
+    <title th:text="${titre}">Mon Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #661616;
+            text-align: center;
+        }
+        .navigation {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .navigation a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .navigation a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- th:text="${variable}" affiche la valeur de la variable Java -->
+        <h1 th:text="${titre}">Titre par défaut</h1>
+        
+        <!-- Si la variable existe, affiche sa valeur, sinon affiche le texte par défaut -->
+        <p th:text="${message}">Message par défaut</p>
+        
+        <div class="navigation">
+            <h3>Navigation :</h3>
+            <!-- Liens vers nos différentes pages -->
+            <a href="/src/main/resources/static">Accueil</a>
+            <a href="/contact">Contact</a>
+            <a href="/saluer?nom=Jean">Saluer Jean</a>
+            <a href="/bonjour">Bonjour (sans nom)</a>
+            <a href="/bonjour?nom=Marie">Bonjour Marie</a>
+        </div>
+        
+        <!-- Information pédagogique sur les méthodes HTTP -->
+        <div style="margin-top: 30px; padding: 15px; background-color: #e9ecef; border-radius: 5px;">
+            <h3>🎓 Concepts HTTP illustrés :</h3>
+            <ul>
+                <li><strong>GET /</strong> : Cette page (récupération de données)</li>
+                <li><strong>GET /contact</strong> : Affichage du formulaire</li>
+                <li><strong>POST /contact</strong> : Soumission du formulaire</li>
+                <li><strong>GET avec paramètres</strong> : /saluer?nom=Jean</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

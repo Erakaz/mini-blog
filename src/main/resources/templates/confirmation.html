@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message envoyé - Mon Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .success h2 {
+            margin-top: 0;
+            color: #155724;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #0056b3;
+        }
+        .info-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success">
+            <h2>✅ Message reçu !</h2>
+            <!-- 
+                Utilisation des données envoyées par le contrôleur
+                th:text="${nomUtilisateur}" affiche le nom de l'utilisateur
+                que nous avons récupéré du formulaire
+            -->
+            <p>Merci <strong th:text="${nomUtilisateur}">Utilisateur</strong> !</p>
+            <p th:text="${confirmation}">Votre message a été reçu.</p>
+        </div>
+        
+        <div class="info-box">
+            <h4>🔄 Cycle de vie de la requête POST :</h4>
+            <ol>
+                <li><strong>Formulaire soumis</strong> → Données envoyées via POST</li>
+                <li><strong>Contrôleur</strong> → Méthode @PostMapping appelée</li>
+                <li><strong>@RequestParam</strong> → Extraction des données du formulaire</li>
+                <li><strong>Traitement</strong> → Logique métier (ici, juste affichage console)</li>
+                <li><strong>Model</strong> → Ajout de données pour la vue</li>
+                <li><strong>Retour</strong> → Affichage de cette page de confirmation</li>
+            </ol>
+        </div>
+        
+        <!-- th:href pour créer des liens dynamiques -->
+        <a href="/src/main/resources/static" class="back-link">← Retour à l'accueil</a>
+        <a href="/contact" class="back-link">Envoyer un autre message</a>
+    </div>
+</body>
+</html>
