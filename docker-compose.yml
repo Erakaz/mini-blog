@@ -1,9 +1,0 @@
-name: mini-blog
-services:
-  db:
-    image: postgres:13.19
-    ports:
-      - '127.0.0.1:5432:5432'
-    environment:
-      POSTGRES_PASSWORD: miniblog
-      POSTGRES_DB: miniblogdb
