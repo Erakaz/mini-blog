@@ -1,8 +1,17 @@
 package com.example.demo.Model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue
     private Long id;
     private String auteur;
     private String titre;
@@ -29,14 +38,6 @@ public class Post {
         this.auteur = auteur;
         this.dateCreation = dateCreation;
         this.dateModification = dateModification;
-    }
-
-        public Long getId() {
-        return id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
     }
     
     public String getTitre() {
@@ -101,5 +102,13 @@ public class Post {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.titre}">Détail de l'article</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navigation {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .navigation a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .navigation a:hover {
+            background-color: #0056b3;
+        }
+        .post-title {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .post-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .post-content {
+            color: #444;
+            line-height: 1.8;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <a href="/">Accueil</a>
+            <a href="/posts">Tous les articles</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div th:if="${post != null}">
+            <h1 class="post-title" th:text="${post.titre}">Titre de l'article</h1>
+            
+            <div class="post-meta">
+                <span>Par <strong th:text="${post.auteur}">Auteur</strong></span>
+                <span> • </span>
+                <span th:text="${#temporals.format(post.dateCreation, 'dd/MM/yyyy à HH:mm')}">Date de création</span>
+                <span th:if="${post.dateModification != post.dateCreation}">
+                    <br>
+                    <span>Dernière modification : <span th:text="${#temporals.format(post.dateModification, 'dd/MM/yyyy à HH:mm')}">Date de modification</span></span>
+                </span>
+            </div>
+            
+            <div class="post-content">
+                <p th:utext="${#strings.replace(post.contenu, '&#10;', '&lt;br&gt;')}" style="white-space: pre-line;">
+                    Contenu de l'article
+                </p>
+            </div>
+        </div>
+
+        <div th:if="${post == null}" style="text-align: center; color: #666;">
+            <h2>Article introuvable</h2>
+            <p>L'article que vous recherchez n'existe pas ou a été supprimé.</p>
+        </div>
+        
+        <div class="back-link">
+            <a href="/posts" class="btn-back">← Retour aux articles</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titre}">Tous les articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #661616;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .navigation {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .navigation a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .navigation a:hover {
+            background-color: #0056b3;
+        }
+        .post-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .post-title {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .post-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        .post-content {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .post-actions {
+            text-align: right;
+        }
+        .btn-read-more {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .btn-read-more:hover {
+            background-color: #218838;
+        }
+        .no-posts {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${titre}">Tous les articles</h1>
+        
+        <div class="navigation">
+            <a href="/">Accueil</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div th:if="${posts != null and !posts.isEmpty()}">
+            <div th:each="post : ${posts}" class="post-card">
+                <h2 class="post-title" th:text="${post.titre}">Titre du post</h2>
+                
+                <div class="post-meta">
+                    <span>Par <strong th:text="${post.auteur}">Auteur</strong></span>
+                    <span> • </span>
+                    <span th:text="${#temporals.format(post.dateCreation, 'dd/MM/yyyy à HH:mm')}">Date</span>
+                    <span th:if="${post.dateModification != post.dateCreation}">
+                        <span> • </span>
+                        <span>Modifié le <span th:text="${#temporals.format(post.dateModification, 'dd/MM/yyyy à HH:mm')}">Date modification</span></span>
+                    </span>
+                </div>
+                
+                <div class="post-content">
+                    <p th:text="${#strings.length(post.contenu) > 200 ? #strings.substring(post.contenu, 0, 200) + '...' : post.contenu}">
+                        Contenu du post
+                    </p>
+                </div>
+                
+                <div class="post-actions">
+                    <a th:href="@{/posts/{id}(id=${post.id})}" class="btn-read-more">Lire la suite</a>
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${posts == null or posts.isEmpty()}" class="no-posts">
+            <p>Aucun article n'a été publié pour le moment.</p>
+            <p>Revenez bientôt pour découvrir du nouveau contenu !</p>
+        </div>
+    </div>
+</body>
+</html>
